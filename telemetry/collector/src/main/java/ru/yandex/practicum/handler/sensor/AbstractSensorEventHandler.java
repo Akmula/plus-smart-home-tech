@@ -37,7 +37,6 @@ public abstract class AbstractSensorEventHandler<T extends SpecificRecordBase> i
         log.info("Получено событие с датчика: {}", avro);
 
         client.getProducer().send(new ProducerRecord<>(sensorEventsTopic, null, avro));
-        client.stop();
     }
 
     public abstract T mapToSensorEventAvro(AbstractSensorEvent hubEvent);

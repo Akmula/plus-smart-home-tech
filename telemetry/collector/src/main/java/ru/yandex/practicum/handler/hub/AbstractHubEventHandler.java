@@ -36,7 +36,6 @@ public abstract class AbstractHubEventHandler<T extends SpecificRecordBase> impl
         log.info("Получено событие с хаба: {}", avro);
 
         client.getProducer().send(new ProducerRecord<>(hubEventsTopic, null, avro));
-        client.stop();
     }
 
     public abstract T mapToHubEventAvro(AbstractHubEvent hubEvent);
