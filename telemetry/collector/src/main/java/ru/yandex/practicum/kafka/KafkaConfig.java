@@ -1,5 +1,7 @@
 package ru.yandex.practicum.kafka;
 
+import jakarta.annotation.PreDestroy;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -12,6 +14,7 @@ import ru.yandex.practicum.kafka.serializer.GeneralAvroSerializer;
 
 import java.util.Properties;
 
+@Slf4j
 @Configuration
 public class KafkaConfig {
 
@@ -27,6 +30,7 @@ public class KafkaConfig {
             @Override
             public Producer<String, SpecificRecordBase> getProducer() {
                 if (producer == null) {
+                    log.info("Открытие продюсера!");
                     initProducer();
                 }
                 return producer;
@@ -38,11 +42,14 @@ public class KafkaConfig {
                 config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
                 config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, GeneralAvroSerializer.class);
                 producer = new KafkaProducer<>(config);
+                log.info("Открыт продюсер: {}!", producer);
             }
 
             @Override
+            @PreDestroy
             public void stop() {
                 if (producer != null) {
+                    log.info("Закрытие продюсера!");
                     producer.close();
                 }
             }
