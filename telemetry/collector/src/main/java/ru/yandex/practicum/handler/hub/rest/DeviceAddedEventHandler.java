@@ -1,4 +1,4 @@
-package ru.yandex.practicum.handler.hub;
+package ru.yandex.practicum.handler.hub.rest;
 
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.kafka.KafkaClient;

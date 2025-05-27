@@ -1,4 +1,4 @@
-package ru.yandex.practicum.handler.sensor;
+package ru.yandex.practicum.handler.sensor.rest;
 
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.kafka.KafkaClient;
