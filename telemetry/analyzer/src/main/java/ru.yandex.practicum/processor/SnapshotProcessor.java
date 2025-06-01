@@ -25,6 +25,9 @@ public class SnapshotProcessor implements Runnable {
     @Value(value = "${analyzer.kafka.consumers[0].topics[0]}")
     private String topic;
 
+    @Value(value = "${analyzer.kafka.consumers[0].poll-timeout}")
+    private Duration pollTimeout;
+
     public void run() {
         try {
             log.info("Запуск обработчика снапшотов для топика: {}", topic);
@@ -36,7 +39,7 @@ public class SnapshotProcessor implements Runnable {
 
             while (true) {
                 log.trace("Ожидание новых снапшотов...");
-                ConsumerRecords<String, SensorsSnapshotAvro> records = consumer.poll(Duration.ofMillis(1000));
+                ConsumerRecords<String, SensorsSnapshotAvro> records = consumer.poll(pollTimeout);
 
                 if (!records.isEmpty()) {
                     log.info("Получено {} снапшотов для обработки", records.count());
