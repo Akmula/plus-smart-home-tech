@@ -57,7 +57,6 @@ public class AggregationStarter {
                     }
                 }
                 consumer.commitSync();
-                log.info("Смещения зафиксированы");
             }
 
         } catch (WakeupException ignored) {
@@ -68,6 +67,7 @@ public class AggregationStarter {
             try {
                 producer.flush();
                 consumer.commitSync();
+                log.info("Смещения зафиксированы");
             } finally {
                 log.info("Закрываем консьюмер");
                 consumer.close();
