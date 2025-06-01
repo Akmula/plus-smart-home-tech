@@ -7,12 +7,10 @@ import org.springframework.stereotype.Component;
 import ru.yandex.practicum.processor.HubEventProcessor;
 import ru.yandex.practicum.processor.SnapshotProcessor;
 
-import java.util.concurrent.*;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AnalyzerRunner implements CommandLineRunner  {
+public class AnalyzerRunner implements CommandLineRunner {
 
     private final HubEventProcessor hubEventProcessor;
     private final SnapshotProcessor snapshotProcessor;
@@ -21,10 +19,10 @@ public class AnalyzerRunner implements CommandLineRunner  {
     public void run(String... args) throws Exception {
         log.info("Запуск обработчиков событий и снапшотов...");
         try {
-
             Thread hubEventsThread = new Thread(hubEventProcessor);
             hubEventsThread.setName("HubEventHandlerThread");
             hubEventsThread.start();
+
             snapshotProcessor.run();
         } catch (Exception e) {
             log.error("Ошибка при запуске обработчиков: {}", e.getMessage(), e);

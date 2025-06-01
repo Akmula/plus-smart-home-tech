@@ -32,8 +32,6 @@ public class SnapshotHandler {
             Map<String, SensorStateAvro> sensorStateMap = sensorsSnapshot.getSensorsState();
             List<Scenario> scenarios = scenarioRepository.findScenariosByHubId(sensorsSnapshot.getHubId());
 
-            log.debug("Найдено сценариев: {}", scenarios.size());
-
             scenarios.forEach(scenario -> {
                 if (handleScenario(scenario, sensorStateMap)) {
                     log.info("Условия сценария '{}' выполнены", scenario.getName());
@@ -117,9 +115,9 @@ public class SnapshotHandler {
             actions.forEach(action -> {
                 try {
                     hubRouterClient.sendRequest(action);
-                    log.debug("Действие {} успешно отправлено", action.getId());
+                    log.debug("Действие с ID: {}, успешно отправлено", action.getId());
                 } catch (Exception e) {
-                    log.error("Ошибка отправки действия {}", action.getId(), e);
+                    log.error("Ошибка отправки действия с ID: {}", action.getId(), e);
                 }
             });
         } catch (Exception e) {

@@ -38,7 +38,7 @@ public class ScenarioRemovedHandler implements HubEventHandler {
             conditionRepository.deleteConditionsByScenario(scenario);
             actionRepository.deleteActionsByScenario(scenario);
             scenarioRepository.delete(scenario);
-            log.info("Сценарий {} удален!", scenario.getName());
+            log.info("Сценарий - {} удален!", scenario.getName());
         } else {
             log.info("Сценарий - {} не найден!", scenarioRemovedEvent.getName());
         }

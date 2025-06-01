@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Getter
 @Component
 public class HubHandler {
+
     private final Map<String, HubEventHandler> handlers;
 
     public HubHandler(Set<HubEventHandler> handlers) {
