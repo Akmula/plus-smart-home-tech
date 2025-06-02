@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: collector
+
+server:
+  port: 8080
+grpc:
+  server:
+    port: 59091
+bootstrap.server: localhost:9092
+sensor_event_topic: telemetry.sensors.v1
+hub_event_topic: telemetry.hubs.v1

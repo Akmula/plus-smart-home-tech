@@ -30,7 +30,7 @@ public class AggregationStarter {
     @Value(value = "${kafka.producer.topics.snapshots}")
     private String snapshotsTopic;
 
-    @Value(value = "${kafka.poll-timeout}")
+    @Value(value = "${kafka.poll.timeout}")
     private Duration pollTimeout;
 
     private final AggregatorClient aggregator;
@@ -39,6 +39,7 @@ public class AggregationStarter {
     public void start() {
         final Consumer<String, SpecificRecordBase> consumer = aggregator.getConsumer();
         final Producer<String, SpecificRecordBase> producer = aggregator.getProducer();
+
         try {
             log.info("Запуск агрегатора. Подписываемся на топик: {}", sensorTopic);
             Runtime.getRuntime().addShutdownHook(new Thread(consumer::wakeup));
