@@ -19,6 +19,7 @@ import java.util.UUID;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "products")
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
