@@ -7,7 +7,7 @@ spring:
   #Db connection
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:8432/shopping-cart-db
+    url: jdbc:postgresql://localhost:6434/shopping-cart-db
     username: postgres
     password: postgres
   jpa:

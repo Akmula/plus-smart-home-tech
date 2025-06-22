@@ -21,5 +21,5 @@ public class AddProductToWarehouseRequest {
 
     @Min(1)
     @NotNull
-    Integer quantity;
+    Long quantity;
 }

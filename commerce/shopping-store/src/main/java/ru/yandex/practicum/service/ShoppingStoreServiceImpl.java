@@ -76,8 +76,14 @@ public class ShoppingStoreServiceImpl implements ShoppingStoreService {
         log.info("ShoppingStoreServiceImpl -> Удаление товара с id: {} из ассортимента", productId);
         Product product = findProductById(productId);
         product.setProductState(ProductState.DEACTIVATE);
-        repository.save(product);
-        log.info("ShoppingStoreServiceImpl ->  Из ассортимента удален товар: {}", product);
+
+        try {
+            repository.save(product);
+            log.info("ShoppingStoreServiceImpl ->  Из ассортимента удален товар: {}", product);
+        } catch (Exception e) {
+            log.error("ShoppingStoreServiceImpl ->  Произошла ошибка при удалении товара: {}", product);
+            return false;
+        }
         return true;
     }
 
@@ -87,8 +93,14 @@ public class ShoppingStoreServiceImpl implements ShoppingStoreService {
         log.info("ShoppingStoreServiceImpl -> Установка статуса: {}", request);
         Product product = findProductById(request.getProductId());
         product.setQuantityState(request.getQuantityState());
-        repository.save(product);
-        log.info("ShoppingStoreServiceImpl -> Установлен статус: {}", request.getQuantityState());
+
+        try {
+            repository.save(product);
+            log.info("ShoppingStoreServiceImpl -> Установлен статус: {}", request.getQuantityState());
+        } catch (Exception e) {
+            log.error("ShoppingStoreServiceImpl ->  Произошла ошибка при установке статуса: {}", product);
+            return false;
+        }
         return true;
     }
 

@@ -26,7 +26,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     private final CartRepository repository;
     private final ShoppingCartMapper mapper;
-    private final WarehouseFeignClient warehouse;
+    private final WarehouseFeignClient warehouseClient;
 
     @Override
     public ShoppingCartDto getCartForUser(String username) {
@@ -45,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         if (cart.getActive() != false) {
             cart.setProducts(request);
-            warehouse.checkProductAvailability(mapper.mapToDto(cart));
+            warehouseClient.checkProductQuantityEnoughForShoppingCart(mapper.mapToDto(cart));
             repository.save(cart);
             log.info("ShoppingCartServiceImpl -> Товар добавлен в корзину: {}", cart);
         }
@@ -87,7 +87,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCartDto changeQuantity(String username, ChangeProductQuantityRequest request) {
         log.info("ShoppingCartServiceImpl -> Изменение количества товаров в корзине {}", request);
         ShoppingCart cart = getShoppingCartByUser(username);
-
         cart.getProducts().put(request.getProductId(), request.getNewQuantity());
         ShoppingCart savedCart = repository.save(cart);
         log.info("ShoppingCartServiceImpl ->  Количества товаров в корзине изменено: {}", savedCart);
